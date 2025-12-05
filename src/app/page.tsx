@@ -15,7 +15,7 @@ export default function Home() {
     <div className="flex flex-col min-h-screen bg-gradient-to-br from-slate-950 via-purple-950 to-slate-900 text-white overflow-x-hidden">
       <ThreeCanvas />
       <Header />
-      <main className="flex-grow">
+      <main className="flex-grow relative z-10">
         <HeroSection />
         <AboutSection />
         <ExperienceSection />

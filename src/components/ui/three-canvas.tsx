@@ -148,7 +148,7 @@ const ThreeCanvas: React.FC = () => {
     };
   }, []);
 
-  return <canvas ref={mountRef} className="fixed top-0 left-0 w-full h-full -z-10 opacity-60" style={{ pointerEvents: 'none' }} />;
+  return <canvas ref={mountRef} className="fixed top-0 left-0 w-full h-full z-0 opacity-60" style={{ pointerEvents: 'none' }} />;
 };
 
 export default ThreeCanvas;
