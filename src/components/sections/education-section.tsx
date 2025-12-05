@@ -24,9 +24,9 @@ const education = [
 
 export default function EducationSection() {
     return (
-        <section id="education" className="relative py-20 px-6">
+        <section id="education" className="relative py-20 px-4 sm:px-6">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-5xl font-bold text-center mb-16 bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent">
+          <h2 className="text-4xl sm:text-5xl font-bold text-center mb-12 sm:mb-16 bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent">
             Educational Background
           </h2>
 
@@ -34,14 +34,14 @@ export default function EducationSection() {
             {education.map((edu, index) => (
               <div
                 key={index}
-                className="bg-gradient-to-br from-slate-900/50 to-slate-800/50 p-8 rounded-2xl backdrop-blur-lg border border-slate-700/30 hover:border-yellow-500/50 transform hover:scale-105 transition-all duration-300"
+                className="bg-gradient-to-br from-slate-900/50 to-slate-800/50 p-6 md:p-8 rounded-2xl backdrop-blur-lg border border-slate-700/30 hover:border-yellow-500/50 transform hover:scale-105 transition-all duration-300"
               >
-                <div className="flex items-start gap-6">
-                  <div className="text-5xl">{edu.icon}</div>
+                <div className="flex items-start gap-4 sm:gap-6">
+                  <div className="text-4xl sm:text-5xl">{edu.icon}</div>
                   <div className="flex-1">
-                    <h3 className="text-2xl font-bold text-yellow-300 mb-2">{edu.institution}</h3>
-                    <p className="text-xl text-orange-400 mb-2">{edu.degree}</p>
-                    <div className="flex flex-wrap gap-4 text-gray-400">
+                    <h3 className="text-xl md:text-2xl font-bold text-yellow-300 mb-2">{edu.institution}</h3>
+                    <p className="text-lg md:text-xl text-orange-400 mb-2">{edu.degree}</p>
+                    <div className="flex flex-col sm:flex-row flex-wrap gap-2 sm:gap-4 text-gray-400 text-sm sm:text-base">
                       <span>📍 {edu.location}</span>
                       <span>📅 {edu.period}</span>
                     </div>
