@@ -1,3 +1,4 @@
+
 import { Zap, Target, Rocket } from 'lucide-react';
 
 export default function AboutSection() {
@@ -41,6 +42,15 @@ export default function AboutSection() {
             </span>
             <span className="px-4 py-2 sm:px-6 sm:py-3 text-sm sm:text-base bg-pink-500/20 rounded-full border border-pink-500/30 text-pink-300 font-semibold">
               JavaScript Libraries
+            </span>
+            <span className="px-4 py-2 sm:px-6 sm:py-3 text-sm sm:text-base bg-green-500/20 rounded-full border border-green-500/30 text-green-300 font-semibold">
+              DevOps
+            </span>
+            <span className="px-4 py-2 sm:px-6 sm:py-3 text-sm sm:text-base bg-orange-500/20 rounded-full border border-orange-500/30 text-orange-300 font-semibold">
+              Robotics
+            </span>
+            <span className="px-4 py-2 sm:px-6 sm:py-3 text-sm sm:text-base bg-cyan-500/20 rounded-full border border-cyan-500/30 text-cyan-300 font-semibold">
+              Full-Stack Development
             </span>
           </div>
         </div>
