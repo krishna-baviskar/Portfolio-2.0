@@ -1,4 +1,4 @@
-export default function ContactSection() {
+export default function ContactSection() { 
   return (
     <section id="contact" className="relative py-20 px-4 sm:px-6">
         <div className="max-w-4xl mx-auto text-center">
