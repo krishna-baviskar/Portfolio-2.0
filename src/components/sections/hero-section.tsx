@@ -1,6 +1,7 @@
 "use client";
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { Mail, Linkedin, Github, ChevronDown } from 'lucide-react';
 import ThreeCanvas from '@/components/ui/three-canvas';
 
@@ -15,8 +16,15 @@ export default function HeroSection() {
             <div className="relative">
               <div className="w-36 h-36 md:w-48 md:h-48 mx-auto bg-gradient-to-br from-purple-500 to-pink-500 rounded-full animate-pulse"></div>
               <div className="absolute inset-0 w-36 h-36 md:w-48 md:h-48 mx-auto bg-gradient-to-tr from-cyan-500 to-blue-500 rounded-full animate-spin-slow opacity-50"></div>
-              <div className="absolute inset-2 md:inset-4 w-32 h-32 md:w-40 md:h-40 mx-auto bg-slate-900 rounded-full flex items-center justify-center text-5xl md:text-6xl font-bold">
-                KB
+              <div className="absolute inset-2 md:inset-4 w-32 h-32 md:w-40 md:h-40 mx-auto rounded-full overflow-hidden">
+                <Image
+                  src="/krishna.png"
+                  alt="Krishna Baviskar"
+                  width={160}
+                  height={160}
+                  className="object-cover w-full h-full"
+                  priority
+                />
               </div>
             </div>
           </div>
