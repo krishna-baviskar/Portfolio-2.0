@@ -1,4 +1,4 @@
-
+ 
 import { Zap, Target, Rocket } from 'lucide-react';
 
 export default function AboutSection() {
