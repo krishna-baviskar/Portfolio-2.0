@@ -1,6 +1,7 @@
+
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -18,6 +19,23 @@ const navLinks = [
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [greeting, setGreeting] = useState('');
+
+  useEffect(() => {
+    const getGreeting = () => {
+      const hour = new Date().getHours();
+      if (hour >= 5 && hour < 12) {
+        return '<Good Morning />';
+      } else if (hour >= 12 && hour < 18) {
+        return '<Good Afternoon />';
+      } else if (hour >= 18 && hour < 22) {
+        return '<Good Evening />';
+      } else {
+        return '<Good Night />';
+      }
+    };
+    setGreeting(getGreeting());
+  }, []);
 
   const toggleMobileMenu = () => setMobileMenuOpen(!mobileMenuOpen);
   
@@ -29,7 +47,7 @@ export default function Header() {
     )}>
       <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
         <Link href="#home" className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent" onClick={closeMobileMenu}>
-            {'</> Welcome'}
+            {greeting || '</> Welcome'}
         </Link>
         <nav className="hidden md:flex space-x-8">
           {navLinks.map((link) => (
