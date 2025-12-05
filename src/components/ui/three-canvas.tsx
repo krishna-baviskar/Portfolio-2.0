@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useRef, useEffect } from 'react';
@@ -22,10 +23,22 @@ const ThreeCanvas: React.FC = () => {
 
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(window.devicePixelRatio);
-    camera.position.z = 5;
+    camera.position.z = 10;
+
+    // Lights
+    scene.add(new THREE.AmbientLight(0x404040, 2));
+    const pointLight1 = new THREE.PointLight(0xa855f7, 2, 30);
+    pointLight1.position.set(5, 5, 5);
+    scene.add(pointLight1);
+    const pointLight2 = new THREE.PointLight(0xec4899, 2, 30);
+    pointLight2.position.set(-5, -5, 5);
+    scene.add(pointLight2);
+    const pointLight3 = new THREE.PointLight(0x06b6d4, 2, 30);
+    pointLight3.position.set(0, 0, -5);
+    scene.add(pointLight3);
 
     // Particle System
-    const particleCount = 2000;
+    const particleCount = 5000;
     const particles = new THREE.BufferGeometry();
     const positions = new Float32Array(particleCount * 3);
     const colors = new Float32Array(particleCount * 3);
@@ -49,10 +62,10 @@ const ThreeCanvas: React.FC = () => {
     particles.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
     const particleMaterial = new THREE.PointsMaterial({
-      size: 0.05,
+      size: 0.03,
       vertexColors: true,
       transparent: true,
-      opacity: 0.8,
+      opacity: 0.7,
       blending: THREE.AdditiveBlending
     });
 
@@ -61,78 +74,69 @@ const ThreeCanvas: React.FC = () => {
 
     // Rotating Geometric Shapes
     const geometries = [
-      new THREE.TorusKnotGeometry(0.5, 0.15, 100, 16),
-      new THREE.OctahedronGeometry(0.7),
-      new THREE.IcosahedronGeometry(0.6)
+      new THREE.TorusKnotGeometry(0.8, 0.25, 128, 16),
+      new THREE.OctahedronGeometry(1),
+      new THREE.IcosahedronGeometry(0.9),
+      new THREE.DodecahedronGeometry(0.8),
     ];
 
     const materials = [
-      new THREE.MeshBasicMaterial({ color: 0xa855f7, wireframe: true, transparent: true, opacity: 0.3 }),
-      new THREE.MeshBasicMaterial({ color: 0xec4899, wireframe: true, transparent: true, opacity: 0.3 }),
-      new THREE.MeshBasicMaterial({ color: 0x06b6d4, wireframe: true, transparent: true, opacity: 0.3 })
+      new THREE.MeshStandardMaterial({ color: 0xa855f7, roughness: 0.4, metalness: 0.6 }),
+      new THREE.MeshStandardMaterial({ color: 0xec4899, roughness: 0.5, metalness: 0.5 }),
+      new THREE.MeshStandardMaterial({ color: 0x06b6d4, roughness: 0.6, metalness: 0.4 }),
+      new THREE.MeshStandardMaterial({ color: 0xf97316, roughness: 0.7, metalness: 0.3, wireframe: true }),
     ];
 
     const meshes: THREE.Mesh[] = [];
     geometries.forEach((geometry, index) => {
       const mesh = new THREE.Mesh(geometry, materials[index]);
-      mesh.position.set((index - 1) * 3, Math.sin(index) * 2, -2);
+      mesh.position.set(
+        (Math.random() - 0.5) * 15,
+        (Math.random() - 0.5) * 10,
+        (Math.random() - 0.5) * 10
+      );
       scene.add(mesh);
       meshes.push(mesh);
     });
 
-    // Animated Lines
-    const lineGeometry = new THREE.BufferGeometry();
-    const linePositions = [];
-    const lineCount = 50;
-    
-    for (let i = 0; i < lineCount; i++) {
-      linePositions.push(
-        (Math.random() - 0.5) * 20, (Math.random() - 0.5) * 20, (Math.random() - 0.5) * 20,
-        (Math.random() - 0.5) * 20, (Math.random() - 0.5) * 20, (Math.random() - 0.5) * 20
-      );
-    }
-
-    lineGeometry.setAttribute('position', new THREE.Float32BufferAttribute(linePositions, 3));
-    const lineMaterial = new THREE.LineBasicMaterial({ color: 0xa855f7, transparent: true, opacity: 0.2 });
-    const lines = new THREE.LineSegments(lineGeometry, lineMaterial);
-    scene.add(lines);
-
     let mouseX = 0;
     let mouseY = 0;
+    let targetX = 0;
+    let targetY = 0;
 
     const handleMouseMove = (event: MouseEvent) => {
-      mouseX = (event.clientX / window.innerWidth) * 2 - 1;
-      mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+      mouseX = (event.clientX - window.innerWidth / 2);
+      mouseY = (event.clientY - window.innerHeight / 2);
     };
     window.addEventListener('mousemove', handleMouseMove);
 
+    const clock = new THREE.Clock();
+
     const animate = () => {
       animationFrameId = requestAnimationFrame(animate);
+      const elapsedTime = clock.getElapsedTime();
 
-      particleSystem.rotation.y += 0.001;
-      particleSystem.rotation.x += 0.0005;
+      targetX = mouseX * 0.001;
+      targetY = mouseY * 0.001;
 
-      const positions = particleSystem.geometry.attributes.position.array as Float32Array;
-      for (let i = 1; i < positions.length; i += 3) {
-        positions[i] -= 0.02;
-        if (positions[i] < -25) {
-          positions[i] = 25;
-        }
-      }
-      particleSystem.geometry.attributes.position.needsUpdate = true;
+      particleSystem.rotation.y += 0.0005;
 
       meshes.forEach((mesh, index) => {
-        mesh.rotation.x += 0.01 * (index + 1);
-        mesh.rotation.y += 0.01 * (index + 1);
-        mesh.position.y = Math.sin(Date.now() * 0.001 + index) * 2;
+        mesh.rotation.x += 0.005 * (index * 0.5 + 1);
+        mesh.rotation.y += 0.005 * (index * 0.5 + 1);
+        
+        const bounceFactor = Math.sin(elapsedTime * (0.5 + index * 0.1));
+        mesh.position.y += bounceFactor * 0.01;
       });
-
-      lines.rotation.y += 0.0005;
-      lines.rotation.x += 0.0003;
-
-      camera.position.x += (mouseX * 0.5 - camera.position.x) * 0.05;
-      camera.position.y += (mouseY * 0.5 - camera.position.y) * 0.05;
+      
+      camera.position.x += (targetX - camera.position.x) * 0.05;
+      camera.position.y += (-targetY - camera.position.y) * 0.05;
       camera.lookAt(scene.position);
+
+      pointLight1.position.x = Math.sin(elapsedTime * 0.5) * 10;
+      pointLight1.position.y = Math.cos(elapsedTime * 0.3) * 10;
+      pointLight2.position.x = Math.cos(elapsedTime * 0.2) * 10;
+      pointLight2.position.y = Math.sin(elapsedTime * 0.4) * 10;
 
       renderer.render(scene, camera);
     };
@@ -150,12 +154,18 @@ const ThreeCanvas: React.FC = () => {
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('resize', handleResize);
       renderer.dispose();
-      geometries.forEach(g => g.dispose());
-      materials.forEach(m => m.dispose());
+      scene.children.forEach(child => {
+        if (child instanceof THREE.Mesh) {
+          child.geometry.dispose();
+          if (Array.isArray(child.material)) {
+            child.material.forEach(m => m.dispose());
+          } else {
+            child.material.dispose();
+          }
+        }
+      });
       particles.dispose();
       particleMaterial.dispose();
-      lineGeometry.dispose();
-      lineMaterial.dispose();
     };
   }, []);
 
