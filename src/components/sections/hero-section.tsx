@@ -26,7 +26,7 @@ export default function HeroSection() {
           </h1>
           
           <p className="text-xl sm:text-2xl md:text-3xl text-purple-300 mb-4">
-            I'm Software Developer | with AI, Devops and Robotics ethusiasts
+            I'm Software Developer | with AI, Devops and Robotics enthusiasts
           </p>
           
           <p className="text-lg sm:text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
