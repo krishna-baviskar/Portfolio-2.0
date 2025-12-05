@@ -1,4 +1,4 @@
-const education = [
+ const education = [
     {
       institution: 'D. Y. Patil College of Engineering',
       degree: 'Bachelor of Technology - Computer Engineering',
