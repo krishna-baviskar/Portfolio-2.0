@@ -1,5 +1,5 @@
 import { Code, Cpu, Smartphone, Cog, Zap } from 'lucide-react';
-
+ 
 const skills = {
     frontend: ['React.js', 'JavaScript', 'HTML5', 'CSS3', 'Tailwind CSS', 'Responsive Design'],
     backend: ['Node.js', 'REST API', 'MongoDB', 'Authentication', 'Firebase'],
