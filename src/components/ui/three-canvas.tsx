@@ -55,7 +55,7 @@ const ThreeCanvas: React.FC = () => {
 
 
     // Particle System
-    const particleCount = 1200;
+    const particleCount = 2000;
     const particles = new THREE.Group();
     const fallArea = { x: 30, y: 40, z: 30 };
 
