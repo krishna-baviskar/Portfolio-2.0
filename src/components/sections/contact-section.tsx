@@ -1,35 +1,36 @@
-import { Button } from '@/components/ui/button';
-import { Mail, Github, Linkedin, Twitter } from 'lucide-react';
-import Link from 'next/link';
-
 export default function ContactSection() {
   return (
-    <section id="contact" className="py-20 lg:py-32">
-      <div className="container mx-auto px-4 text-center">
-        <h2 className="text-3xl lg:text-4xl font-headline font-bold mb-4">Get In Touch</h2>
-        <p className="max-w-2xl mx-auto text-muted-foreground mb-8">
-          I'm currently open to new opportunities and collaborations. Feel free to reach out if you have a project in mind or just want to connect!
-        </p>
-        <div className="flex justify-center mb-12">
-            <Button asChild size="lg" className="font-bold">
-                <a href="mailto:hello@example.com">
-                    <Mail className="mr-2 h-5 w-5" />
-                    Say Hello
-                </a>
-            </Button>
+    <section id="contact" className="relative py-20 px-6">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-5xl font-bold mb-8 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+            Let's Connect
+          </h2>
+          
+          <p className="text-xl text-gray-300 mb-8 leading-relaxed">
+            I'm always open to networking with professionals, innovators, and teams that are pushing the boundaries of engineering and technology. Whether you're looking to collaborate on exciting projects, discuss innovative ideas, or explore opportunities, I'd love to connect!
+          </p>
+          
+          <p className="text-lg text-gray-400 mb-12">
+            With my interdisciplinary background spanning mechanical engineering, computer science, web development, AI/ML, and Android development, I bring a unique perspective to problem-solving and innovation.
+          </p>
+
+          <div className="flex justify-center gap-6">
+            <a
+              href="mailto:krishna@email.com"
+              className="px-8 py-4 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full font-bold text-lg hover:shadow-2xl hover:shadow-purple-500/50 transform hover:scale-110 transition-all duration-300"
+            >
+              Get In Touch
+            </a>
+            <a
+              href="https://linkedin.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-8 py-4 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full font-bold text-lg hover:shadow-2xl hover:shadow-blue-500/50 transform hover:scale-110 transition-all duration-300"
+            >
+              Connect on LinkedIn
+            </a>
+          </div>
         </div>
-        <div className="flex justify-center items-center gap-6">
-          <Link href="#" aria-label="GitHub" target="_blank" rel="noopener noreferrer">
-            <Github className="h-6 w-6 text-muted-foreground hover:text-primary transition-colors" />
-          </Link>
-          <Link href="#" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
-            <Linkedin className="h-6 w-6 text-muted-foreground hover:text-primary transition-colors" />
-          </Link>
-          <Link href="#" aria-label="Twitter" target="_blank" rel="noopener noreferrer">
-            <Twitter className="h-6 w-6 text-muted-foreground hover:text-primary transition-colors" />
-          </Link>
-        </div>
-      </div>
-    </section>
+      </section>
   );
 }

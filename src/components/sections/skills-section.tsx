@@ -1,36 +1,83 @@
-import { Code, Database, Cloud, Brush, Smartphone, TerminalSquare } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Code, Cpu, Smartphone, Cog, Zap } from 'lucide-react';
 
-const skills = [
-  { name: 'Frontend', icon: Code, description: 'React, Next.js, Vue, Tailwind' },
-  { name: 'Backend', icon: Database, description: 'Node.js, Python, Firebase, SQL' },
-  { name: 'Cloud & DevOps', icon: Cloud, description: 'Docker, GCP, Vercel, CI/CD' },
-  { name: 'UI/UX Design', icon: Brush, description: 'Figma, Adobe XD, User Research' },
-  { name: 'Mobile Dev', icon: Smartphone, description: 'React Native, Flutter' },
-  { name: 'Tooling', icon: TerminalSquare, description: 'Git, Webpack, Jest' },
-];
+const skills = {
+    frontend: ['React.js', 'JavaScript', 'HTML5', 'CSS3', 'Tailwind CSS', 'Responsive Design'],
+    backend: ['Node.js', 'REST API', 'MongoDB', 'Authentication', 'Firebase'],
+    aiml: ['Python', 'TensorFlow', 'Scikit-learn', 'NumPy', 'Pandas', 'Matplotlib'],
+    mobile: ['Android Studio', 'Java', 'Kotlin', 'MVVM', 'Jetpack Components'],
+    tools: ['Git', 'GitHub', 'CNC Machines', 'Manufacturing', 'Oracle DB']
+  };
 
 export default function SkillsSection() {
   return (
-    <section id="skills" className="py-20 lg:py-32 bg-secondary/20">
-      <div className="container mx-auto px-4">
-        <h2 className="text-3xl lg:text-4xl font-headline font-bold mb-12 text-center">My Skills</h2>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {skills.map((skill) => (
-            <Card key={skill.name} className="text-center bg-card/80 backdrop-blur-sm transition-all duration-300 hover:border-primary border-border/50">
-              <CardHeader>
-                <div className="mx-auto bg-primary/10 text-primary p-4 rounded-full w-fit">
-                  <skill.icon className="h-8 w-8" />
-                </div>
-              </CardHeader>
-              <CardContent>
-                <CardTitle className="font-headline text-xl mb-2">{skill.name}</CardTitle>
-                <p className="text-muted-foreground text-sm">{skill.description}</p>
-              </CardContent>
-            </Card>
-          ))}
+    <section id="skills" className="relative py-20 px-6">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-5xl font-bold text-center mb-16 bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">
+            Technical Skills
+          </h2>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="bg-gradient-to-br from-purple-900/30 to-pink-900/30 p-8 rounded-2xl backdrop-blur-lg border border-purple-500/20 transform hover:scale-105 transition-all duration-300">
+              <Code className="w-12 h-12 text-purple-400 mb-4" />
+              <h3 className="text-2xl font-bold mb-4 text-purple-300">Frontend Development</h3>
+              <div className="space-y-2">
+                {skills.frontend.map((skill, i) => (
+                  <div key={i} className="px-4 py-2 bg-purple-500/10 rounded-lg hover:bg-purple-500/20 transition-colors">
+                    {skill}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="bg-gradient-to-br from-blue-900/30 to-cyan-900/30 p-8 rounded-2xl backdrop-blur-lg border border-blue-500/20 transform hover:scale-105 transition-all duration-300">
+              <Cpu className="w-12 h-12 text-blue-400 mb-4" />
+              <h3 className="text-2xl font-bold mb-4 text-blue-300">Backend Systems</h3>
+              <div className="space-y-2">
+                {skills.backend.map((skill, i) => (
+                  <div key={i} className="px-4 py-2 bg-blue-500/10 rounded-lg hover:bg-blue-500/20 transition-colors">
+                    {skill}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="bg-gradient-to-br from-cyan-900/30 to-teal-900/30 p-8 rounded-2xl backdrop-blur-lg border border-cyan-500/20 transform hover:scale-105 transition-all duration-300">
+              <Zap className="w-12 h-12 text-cyan-400 mb-4" />
+              <h3 className="text-2xl font-bold mb-4 text-cyan-300">AI & Machine Learning</h3>
+              <div className="space-y-2">
+                {skills.aiml.map((skill, i) => (
+                  <div key={i} className="px-4 py-2 bg-cyan-500/10 rounded-lg hover:bg-cyan-500/20 transition-colors">
+                    {skill}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="bg-gradient-to-br from-green-900/30 to-emerald-900/30 p-8 rounded-2xl backdrop-blur-lg border border-green-500/20 transform hover:scale-105 transition-all duration-300">
+              <Smartphone className="w-12 h-12 text-green-400 mb-4" />
+              <h3 className="text-2xl font-bold mb-4 text-green-300">Mobile Development</h3>
+              <div className="space-y-2">
+                {skills.mobile.map((skill, i) => (
+                  <div key={i} className="px-4 py-2 bg-green-500/10 rounded-lg hover:bg-green-500/20 transition-colors">
+                    {skill}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="bg-gradient-to-br from-orange-900/30 to-red-900/30 p-8 rounded-2xl backdrop-blur-lg border border-orange-500/20 transform hover:scale-105 transition-all duration-300">
+              <Cog className="w-12 h-12 text-orange-400 mb-4" />
+              <h3 className="text-2xl font-bold mb-4 text-orange-300">Tools & Manufacturing</h3>
+              <div className="space-y-2">
+                {skills.tools.map((skill, i) => (
+                  <div key={i} className="px-4 py-2 bg-orange-500/10 rounded-lg hover:bg-orange-500/20 transition-colors">
+                    {skill}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
   );
 }

@@ -1,65 +1,60 @@
 "use client";
 
-import { useState } from 'react';
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
-import { Slider } from '@/components/ui/slider';
-import { Label } from '@/components/ui/label';
+import { Mail, Linkedin, Github, ChevronDown } from 'lucide-react';
 import ThreeCanvas from '@/components/ui/three-canvas';
-import { ArrowDown } from 'lucide-react';
 
 export default function HeroSection() {
-  const [particleSpeed, setParticleSpeed] = useState(1);
-  const [shapeComplexity, setShapeComplexity] = useState(20);
-
   return (
-    <section id="home" className="relative h-screen w-full flex flex-col items-center justify-center text-center overflow-hidden">
-      <ThreeCanvas particleSpeed={particleSpeed} shapeComplexity={shapeComplexity} />
+    <section id="home" className="relative min-h-screen flex items-center justify-center pt-20">
+      <ThreeCanvas />
       
-      <div className="relative z-10 p-4 flex flex-col items-center">
-        <h1 className="text-5xl md:text-7xl font-bold font-headline text-foreground mb-4 animate-fade-in-down">
-          CodeCanvas Portfolio
-        </h1>
-        <p className="max-w-2xl mx-auto text-lg md:text-xl text-muted-foreground mb-8 animate-fade-in-up [animation-delay:0.2s]">
-          An interactive portfolio exploring creative development and modern web technologies.
-        </p>
-        <div className="animate-fade-in-up [animation-delay:0.4s]">
-          <Link href="#projects">
-            <Button size="lg" className="font-bold">
-              View My Work
-              <ArrowDown className="ml-2 h-5 w-5" />
-            </Button>
-          </Link>
-        </div>
-      </div>
+      <div className="max-w-7xl mx-auto px-6 py-20 relative z-10">
+        <div className="text-center">
+          <div className="inline-block mb-6">
+            <div className="relative">
+              <div className="w-48 h-48 mx-auto bg-gradient-to-br from-purple-500 to-pink-500 rounded-full animate-pulse"></div>
+              <div className="absolute inset-0 w-48 h-48 mx-auto bg-gradient-to-tr from-cyan-500 to-blue-500 rounded-full animate-spin-slow opacity-50"></div>
+              <div className="absolute inset-4 w-40 h-40 mx-auto bg-slate-900 rounded-full flex items-center justify-center text-6xl font-bold">
+                KB
+              </div>
+            </div>
+          </div>
+          
+          <h1 className="text-6xl md:text-8xl font-bold mb-6 bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 bg-clip-text text-transparent animate-gradient">
+            Krishna Somnath Baviskar
+          </h1>
+          
+          <p className="text-2xl md:text-3xl text-purple-300 mb-4">
+            CSE Undergrad | Diploma in Mech
+          </p>
+          
+          <p className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
+            Technophile | Passionate About Innovation and Problem-Solving
+          </p>
+          
+          <div className="flex justify-center gap-6 mb-12">
+            <a href="mailto:krishna@email.com" className="transform hover:scale-110 transition-all duration-300">
+              <div className="w-14 h-14 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center hover:shadow-lg hover:shadow-purple-500/50">
+                <Mail size={24} />
+              </div>
+            </a>
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="transform hover:scale-110 transition-all duration-300">
+              <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full flex items-center justify-center hover:shadow-lg hover:shadow-blue-500/50">
+                <Linkedin size={24} />
+              </div>
+            </a>
+            <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="transform hover:scale-110 transition-all duration-300">
+              <div className="w-14 h-14 bg-gradient-to-br from-gray-600 to-gray-800 rounded-full flex items-center justify-center hover:shadow-lg hover:shadow-gray-500/50">
+                <Github size={24} />
+              </div>
+            </a>
+          </div>
 
-      <div className="absolute z-10 bottom-4 right-4 bg-card/50 backdrop-blur-sm p-4 rounded-lg w-64 space-y-4 shadow-lg hidden md:block">
-        <div className="space-y-2">
-          <Label htmlFor="speed-slider" className="text-sm font-medium">Particle Speed</Label>
-          <Slider
-            id="speed-slider"
-            defaultValue={[1]}
-            value={[particleSpeed]}
-            max={5}
-            step={0.1}
-            onValueChange={(value) => setParticleSpeed(value[0])}
-          />
+          <a href="#about" className="inline-block animate-bounce">
+            <ChevronDown size={40} className="text-purple-400" />
+          </a>
         </div>
-        <div className="space-y-2">
-          <Label htmlFor="complexity-slider" className="text-sm font-medium">Shape Complexity</Label>
-          <Slider
-            id="complexity-slider"
-            defaultValue={[20]}
-            value={[shapeComplexity]}
-            max={100}
-            step={5}
-            onValueChange={(value) => setShapeComplexity(value[0])}
-          />
-        </div>
-      </div>
-
-      <div className="absolute bottom-8 z-10 text-muted-foreground animate-bounce">
-        <ArrowDown className="h-6 w-6" />
       </div>
     </section>
   );
