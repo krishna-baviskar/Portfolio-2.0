@@ -1,5 +1,5 @@
 "use client";
-
+ 
 import Link from 'next/link';
 import Image from 'next/image';
 import { Mail, Linkedin, Github, ChevronDown } from 'lucide-react';
