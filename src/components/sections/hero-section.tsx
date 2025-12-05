@@ -44,7 +44,7 @@ export default function HeroSection() {
                 <Linkedin size={24} />
               </div>
             </a>
-            <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="transform hover:scale-110 transition-all duration-300">
+            <a href="https://github.com/krishna-baviskar" target="_blank" rel="noopener noreferrer" className="transform hover:scale-110 transition-all duration-300">
               <div className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-gray-600 to-gray-800 rounded-full flex items-center justify-center hover:shadow-lg hover:shadow-gray-500/50">
                 <Github size={24} />
               </div>
