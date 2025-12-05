@@ -38,7 +38,7 @@ const ThreeCanvas: React.FC = () => {
     scene.add(pointLight3);
 
     // Symbols and logos
-    const symbols = ['</>', '{}', '=>', '()', 'JS', '⚛', '⬢', 'git'];
+    const symbols = ['</>', '{}', '=>', '()', 'JS', '⚛', '⬢', 'git', '0', '1', 'PY', 'C++', 'java', 'npm', 'db'];
     const symbolTextures = symbols.map(symbol => {
       const canvas = document.createElement('canvas');
       const context = canvas.getContext('2d');
@@ -55,7 +55,7 @@ const ThreeCanvas: React.FC = () => {
 
 
     // Particle System
-    const particleCount = 200;
+    const particleCount = 500;
     const particles = new THREE.Group();
     const fallArea = { x: 30, y: 40, z: 30 };
 
