@@ -55,7 +55,7 @@ const ThreeCanvas: React.FC = () => {
 
 
     // Particle System
-    const particleCount = 800;
+    const particleCount = 1200;
     const particles = new THREE.Group();
     const fallArea = { x: 30, y: 40, z: 30 };
 
@@ -129,7 +129,7 @@ const ThreeCanvas: React.FC = () => {
         }
          if (Math.abs(sprite.position.z) > fallArea.z / 2) {
             sprite.position.z *= -0.99;
-        }
+         }
       });
       particles.rotation.y += 0.0005;
       
