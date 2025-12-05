@@ -1,4 +1,4 @@
-import { Code, Cpu, Smartphone, Cog, Star } from 'lucide-react';
+ import { Code, Cpu, Smartphone, Cog, Star } from 'lucide-react';
 
 const experiences = [
     {
