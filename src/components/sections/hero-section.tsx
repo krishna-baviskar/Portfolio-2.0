@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { Mail, Linkedin, Github, ChevronDown } from 'lucide-react';
+import TypingEffect from '@/components/ui/typing-effect';
 
 export default function HeroSection() {
   return (
@@ -27,7 +28,7 @@ export default function HeroSection() {
           </div>
           
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 bg-clip-text text-transparent animate-gradient">
-            Hi !! I am Krishna Somnath Baviskar
+            Hi !! I am <TypingEffect text="Krishna Somnath Baviskar" />
           </h1>
           
           <p className="text-xl sm:text-2xl md:text-3xl text-purple-300 mb-4">
