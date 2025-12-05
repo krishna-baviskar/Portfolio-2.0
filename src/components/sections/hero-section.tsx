@@ -3,13 +3,10 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { Mail, Linkedin, Github, ChevronDown } from 'lucide-react';
-import ThreeCanvas from '@/components/ui/three-canvas';
 
 export default function HeroSection() {
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center pt-20 px-4 sm:px-6">
-      <ThreeCanvas />
-      
+    <section id="home" className="relative min-h-screen flex items-center justify-center pt-20 px-4 sm-px-6">
       <div className="max-w-7xl mx-auto py-20 relative z-10">
         <div className="text-center">
           <div className="inline-block mb-6">
