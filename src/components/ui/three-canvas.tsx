@@ -37,46 +37,63 @@ const ThreeCanvas: React.FC = () => {
     pointLight3.position.set(0, 0, 15);
     scene.add(pointLight3);
 
-    // Particle System - Code Rain Effect
-    const particleCount = 10000;
-    const particles = new THREE.BufferGeometry();
-    const positions = new Float32Array(particleCount * 3);
-    const colors = new Float32Array(particleCount * 3);
-    const velocities = new Float32Array(particleCount);
+    // Symbols and logos
+    const symbols = ['</>', '{}', '=>', '()', 'JS', '⚛', '⬢', 'git'];
+    const symbolTextures = symbols.map(symbol => {
+      const canvas = document.createElement('canvas');
+      const context = canvas.getContext('2d');
+      if (!context) return null;
+      canvas.width = 64;
+      canvas.height = 64;
+      context.font = 'bold 32px monospace';
+      context.fillStyle = 'white';
+      context.textAlign = 'center';
+      context.textBaseline = 'middle';
+      context.fillText(symbol, 32, 32);
+      return new THREE.CanvasTexture(canvas);
+    }).filter(t => t !== null) as THREE.CanvasTexture[];
 
+
+    // Particle System
+    const particleCount = 200;
+    const particles = new THREE.Group();
     const fallArea = { x: 30, y: 40, z: 30 };
 
+    const colors = [
+        new THREE.Color(0xa855f7), // Purple
+        new THREE.Color(0xec4899), // Pink
+        new THREE.Color(0x06b6d4), // Cyan
+    ];
+
     for (let i = 0; i < particleCount; i++) {
-      positions[i * 3] = (Math.random() - 0.5) * fallArea.x; // x
-      positions[i * 3 + 1] = (Math.random() - 0.5) * fallArea.y; // y
-      positions[i * 3 + 2] = (Math.random() - 0.5) * fallArea.z; // z
+        const texture = symbolTextures[i % symbolTextures.length];
+        const color = colors[i % colors.length];
 
-      const colorChoice = Math.random();
-      if (colorChoice < 0.33) {
-        colors[i * 3] = 0.66; colors[i * 3 + 1] = 0.33; colors[i * 3 + 2] = 1; // Purple
-      } else if (colorChoice < 0.66) {
-        colors[i * 3] = 0.93; colors[i * 3 + 1] = 0.29; colors[i * 3 + 2] = 0.58; // Pink
-      } else {
-        colors[i * 3] = 0.02; colors[i * 3 + 1] = 0.71; colors[i * 3 + 2] = 0.83; // Cyan
-      }
+        const material = new THREE.SpriteMaterial({
+            map: texture,
+            color: color,
+            blending: THREE.AdditiveBlending,
+            transparent: true,
+            opacity: 0.8
+        });
+        const sprite = new THREE.Sprite(material);
 
-      velocities[i] = 0.1 + Math.random() * 0.2;
+        sprite.position.set(
+            (Math.random() - 0.5) * fallArea.x,
+            (Math.random() - 0.5) * fallArea.y,
+            (Math.random() - 0.5) * fallArea.z
+        );
+
+        sprite.scale.set(0.5, 0.5, 1);
+
+        (sprite as any).velocity = new THREE.Vector3(
+            (Math.random() - 0.5) * 0.01,
+            -0.02 - Math.random() * 0.05,
+            (Math.random() - 0.5) * 0.01
+        );
+        particles.add(sprite);
     }
-
-    particles.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-    particles.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-
-    const particleMaterial = new THREE.PointsMaterial({
-      size: 0.05,
-      vertexColors: true,
-      transparent: true,
-      opacity: 0.7,
-      blending: THREE.AdditiveBlending,
-      sizeAttenuation: true,
-    });
-
-    const particleSystem = new THREE.Points(particles, particleMaterial);
-    scene.add(particleSystem);
+    scene.add(particles);
     
     let mouseX = 0;
     let mouseY = 0;
@@ -98,15 +115,23 @@ const ThreeCanvas: React.FC = () => {
       targetX = mouseX * 0.001;
       targetY = mouseY * 0.001;
 
-      // Animate particles falling
-      const positions = particleSystem.geometry.attributes.position.array as Float32Array;
-      for (let i = 0; i < particleCount; i++) {
-        positions[i * 3 + 1] -= velocities[i];
-        if (positions[i * 3 + 1] < -fallArea.y / 2) {
-          positions[i * 3 + 1] = fallArea.y / 2;
+      // Animate particles
+      particles.children.forEach(child => {
+        const sprite = child as THREE.Sprite;
+        sprite.position.add((sprite as any).velocity);
+        
+        // Wrap around
+        if (sprite.position.y < -fallArea.y / 2) {
+            sprite.position.y = fallArea.y / 2;
         }
-      }
-      particleSystem.geometry.attributes.position.needsUpdate = true;
+        if (Math.abs(sprite.position.x) > fallArea.x / 2) {
+            sprite.position.x *= -0.99;
+        }
+         if (Math.abs(sprite.position.z) > fallArea.z / 2) {
+            sprite.position.z *= -0.99;
+        }
+      });
+      particles.rotation.y += 0.0005;
       
       camera.position.x += (targetX - camera.position.x) * 0.05;
       camera.position.y += (-targetY - camera.position.y) * 0.05;
@@ -134,17 +159,17 @@ const ThreeCanvas: React.FC = () => {
       window.removeEventListener('resize', handleResize);
       renderer.dispose();
       scene.children.forEach(child => {
-        if (child instanceof THREE.Mesh) {
-          child.geometry.dispose();
-          if (Array.isArray(child.material)) {
-            child.material.forEach(m => m.dispose());
-          } else {
-            child.material.dispose();
+        if (child instanceof THREE.Mesh || child instanceof THREE.Sprite || child instanceof THREE.Points) {
+          if ((child as any).geometry) (child as any).geometry.dispose();
+          if ((child as any).material) {
+             if (Array.isArray((child as any).material)) {
+                (child as any).material.forEach((m: any) => m.dispose());
+             } else {
+                (child as any).material.dispose();
+             }
           }
         }
       });
-      particles.dispose();
-      particleMaterial.dispose();
     };
   }, []);
 
