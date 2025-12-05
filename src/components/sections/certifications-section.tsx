@@ -1,4 +1,4 @@
-import { Award } from 'lucide-react';
+import { Award } from 'lucide-react'; 
 
 const certifications = [
     { name: 'Oracle Certified Foundation Associate', desc: 'Database management expertise' },
