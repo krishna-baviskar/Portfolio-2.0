@@ -22,7 +22,7 @@ export default function ContactSection() {
               Get In Touch
             </a>
             <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/in/krishna-baviskar/"
               target="_blank"
               rel="noopener noreferrer"
               className="px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full font-bold text-base sm:text-lg hover:shadow-2xl hover:shadow-blue-500/50 transform hover:scale-110 transition-all duration-300"

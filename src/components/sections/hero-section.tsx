@@ -39,7 +39,7 @@ export default function HeroSection() {
                 <Mail size={24} />
               </div>
             </a>
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="transform hover:scale-110 transition-all duration-300">
+            <a href="https://www.linkedin.com/in/krishna-baviskar/" target="_blank" rel="noopener noreferrer" className="transform hover:scale-110 transition-all duration-300">
               <div className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full flex items-center justify-center hover:shadow-lg hover:shadow-blue-500/50">
                 <Linkedin size={24} />
               </div>
