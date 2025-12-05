@@ -27,78 +27,57 @@ const ThreeCanvas: React.FC = () => {
 
     // Lights
     scene.add(new THREE.AmbientLight(0x404040, 2));
-    const pointLight1 = new THREE.PointLight(0xa855f7, 2, 30);
-    pointLight1.position.set(5, 5, 5);
+    const pointLight1 = new THREE.PointLight(0xa855f7, 1.5, 40);
+    pointLight1.position.set(10, 10, 10);
     scene.add(pointLight1);
-    const pointLight2 = new THREE.PointLight(0xec4899, 2, 30);
-    pointLight2.position.set(-5, -5, 5);
+    const pointLight2 = new THREE.PointLight(0xec4899, 1.5, 40);
+    pointLight2.position.set(-10, -10, 10);
     scene.add(pointLight2);
-    const pointLight3 = new THREE.PointLight(0x06b6d4, 2, 30);
-    pointLight3.position.set(0, 0, -5);
+    const pointLight3 = new THREE.PointLight(0x06b6d4, 1.5, 40);
+    pointLight3.position.set(0, 0, 15);
     scene.add(pointLight3);
 
-    // Particle System
-    const particleCount = 5000;
+    // Particle System - Code Rain Effect
+    const particleCount = 10000;
     const particles = new THREE.BufferGeometry();
     const positions = new Float32Array(particleCount * 3);
     const colors = new Float32Array(particleCount * 3);
+    const velocities = new Float32Array(particleCount);
 
-    for (let i = 0; i < particleCount * 3; i += 3) {
-      positions[i] = (Math.random() - 0.5) * 50;
-      positions[i + 1] = (Math.random() - 0.5) * 50;
-      positions[i + 2] = (Math.random() - 0.5) * 50;
+    const fallArea = { x: 30, y: 40, z: 30 };
+
+    for (let i = 0; i < particleCount; i++) {
+      positions[i * 3] = (Math.random() - 0.5) * fallArea.x; // x
+      positions[i * 3 + 1] = (Math.random() - 0.5) * fallArea.y; // y
+      positions[i * 3 + 2] = (Math.random() - 0.5) * fallArea.z; // z
 
       const colorChoice = Math.random();
       if (colorChoice < 0.33) {
-        colors[i] = 0.66; colors[i + 1] = 0.33; colors[i + 2] = 1; // Purple
+        colors[i * 3] = 0.66; colors[i * 3 + 1] = 0.33; colors[i * 3 + 2] = 1; // Purple
       } else if (colorChoice < 0.66) {
-        colors[i] = 0.93; colors[i + 1] = 0.29; colors[i + 2] = 0.58; // Pink
+        colors[i * 3] = 0.93; colors[i * 3 + 1] = 0.29; colors[i * 3 + 2] = 0.58; // Pink
       } else {
-        colors[i] = 0.02; colors[i + 1] = 0.71; colors[i + 2] = 0.83; // Cyan
+        colors[i * 3] = 0.02; colors[i * 3 + 1] = 0.71; colors[i * 3 + 2] = 0.83; // Cyan
       }
+
+      velocities[i] = 0.1 + Math.random() * 0.2;
     }
 
     particles.setAttribute('position', new THREE.BufferAttribute(positions, 3));
     particles.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
     const particleMaterial = new THREE.PointsMaterial({
-      size: 0.03,
+      size: 0.05,
       vertexColors: true,
       transparent: true,
       opacity: 0.7,
-      blending: THREE.AdditiveBlending
+      blending: THREE.AdditiveBlending,
+      sizeAttenuation: true,
     });
 
     const particleSystem = new THREE.Points(particles, particleMaterial);
     scene.add(particleSystem);
-
-    // Rotating Geometric Shapes
-    const geometries = [
-      new THREE.TorusKnotGeometry(0.8, 0.25, 128, 16),
-      new THREE.OctahedronGeometry(1),
-      new THREE.IcosahedronGeometry(0.9),
-      new THREE.DodecahedronGeometry(0.8),
-    ];
-
-    const materials = [
-      new THREE.MeshStandardMaterial({ color: 0xa855f7, roughness: 0.4, metalness: 0.6 }),
-      new THREE.MeshStandardMaterial({ color: 0xec4899, roughness: 0.5, metalness: 0.5 }),
-      new THREE.MeshStandardMaterial({ color: 0x06b6d4, roughness: 0.6, metalness: 0.4 }),
-      new THREE.MeshStandardMaterial({ color: 0xf97316, roughness: 0.7, metalness: 0.3, wireframe: true }),
-    ];
-
-    const meshes: THREE.Mesh[] = [];
-    geometries.forEach((geometry, index) => {
-      const mesh = new THREE.Mesh(geometry, materials[index]);
-      mesh.position.set(
-        (Math.random() - 0.5) * 15,
-        (Math.random() - 0.5) * 10,
-        (Math.random() - 0.5) * 10
-      );
-      scene.add(mesh);
-      meshes.push(mesh);
-    });
-
+    
     let mouseX = 0;
     let mouseY = 0;
     let targetX = 0;
@@ -119,25 +98,25 @@ const ThreeCanvas: React.FC = () => {
       targetX = mouseX * 0.001;
       targetY = mouseY * 0.001;
 
-      particleSystem.rotation.y += 0.0005;
-
-      meshes.forEach((mesh, index) => {
-        mesh.rotation.x += 0.005 * (index * 0.5 + 1);
-        mesh.rotation.y += 0.005 * (index * 0.5 + 1);
-        
-        const bounceFactor = Math.sin(elapsedTime * (0.5 + index * 0.1));
-        mesh.position.y += bounceFactor * 0.01;
-      });
+      // Animate particles falling
+      const positions = particleSystem.geometry.attributes.position.array as Float32Array;
+      for (let i = 0; i < particleCount; i++) {
+        positions[i * 3 + 1] -= velocities[i];
+        if (positions[i * 3 + 1] < -fallArea.y / 2) {
+          positions[i * 3 + 1] = fallArea.y / 2;
+        }
+      }
+      particleSystem.geometry.attributes.position.needsUpdate = true;
       
       camera.position.x += (targetX - camera.position.x) * 0.05;
       camera.position.y += (-targetY - camera.position.y) * 0.05;
       camera.lookAt(scene.position);
 
-      pointLight1.position.x = Math.sin(elapsedTime * 0.5) * 10;
-      pointLight1.position.y = Math.cos(elapsedTime * 0.3) * 10;
-      pointLight2.position.x = Math.cos(elapsedTime * 0.2) * 10;
-      pointLight2.position.y = Math.sin(elapsedTime * 0.4) * 10;
-
+      pointLight1.position.x = Math.sin(elapsedTime * 0.5) * 20;
+      pointLight1.position.y = Math.cos(elapsedTime * 0.3) * 20;
+      pointLight2.position.x = Math.cos(elapsedTime * 0.2) * 20;
+      pointLight2.position.y = Math.sin(elapsedTime * 0.4) * 20;
+      
       renderer.render(scene, camera);
     };
     animate();
