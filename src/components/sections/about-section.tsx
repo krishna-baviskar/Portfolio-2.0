@@ -41,7 +41,7 @@ export default function AboutSection() {
               React.js
             </span>
             <span className="px-4 py-2 sm:px-6 sm:py-3 text-sm sm:text-base bg-pink-500/20 rounded-full border border-pink-500/30 text-pink-300 font-semibold">
-              JavaScript Libraries
+              AI/ML
             </span>
             <span className="px-4 py-2 sm:px-6 sm:py-3 text-sm sm:text-base bg-green-500/20 rounded-full border border-green-500/30 text-green-300 font-semibold">
               DevOps
@@ -51,6 +51,12 @@ export default function AboutSection() {
             </span>
             <span className="px-4 py-2 sm:px-6 sm:py-3 text-sm sm:text-base bg-cyan-500/20 rounded-full border border-cyan-500/30 text-cyan-300 font-semibold">
               Full-Stack Development
+            </span>
+             <span className="px-4 py-2 sm:px-6 sm:py-3 text-sm sm:text-base bg-yellow-500/20 rounded-full border border-yellow-500/30 text-yellow-300 font-semibold">
+              Cloud Computing
+            </span>
+             <span className="px-4 py-2 sm:px-6 sm:py-3 text-sm sm:text-base bg-red-500/20 rounded-full border border-red-500/30 text-red-300 font-semibold">
+              Cybersecurity
             </span>
           </div>
         </div>
