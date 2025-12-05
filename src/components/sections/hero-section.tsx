@@ -34,7 +34,7 @@ export default function HeroSection() {
           </p>
           
           <div className="flex justify-center gap-4 sm:gap-6 mb-12">
-            <a href="mailto:krishna@email.com" className="transform hover:scale-110 transition-all duration-300">
+            <a href="mailto:krishnabaviskar40@gmail.com" className="transform hover:scale-110 transition-all duration-300">
               <div className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center hover:shadow-lg hover:shadow-purple-500/50">
                 <Mail size={24} />
               </div>

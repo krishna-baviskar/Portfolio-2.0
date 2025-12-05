@@ -16,7 +16,7 @@ export default function ContactSection() {
 
           <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6">
             <a
-              href="mailto:krishna@email.com"
+              href="mailto:krishnabaviskar40@gmail.com"
               className="px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full font-bold text-base sm:text-lg hover:shadow-2xl hover:shadow-purple-500/50 transform hover:scale-110 transition-all duration-300"
             >
               Get In Touch
