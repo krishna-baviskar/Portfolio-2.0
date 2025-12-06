@@ -3,7 +3,7 @@ import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
-  title: 'CodeCanvas Portfolio',
+  title: 'Krishna Baviskar',
   description: 'An interactive portfolio showcasing projects with a dynamic 3D canvas.',
 };
 
