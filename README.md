@@ -1,4 +1,4 @@
-# Portfolio 2.0
+# Portfolio 2.0 
 
 Welcome to the my Portfolio 2.0, an interactive and dynamic personal portfolio website. This project showcases skills, experience, and projects in a visually engaging format, complete with a stunning 3D animated background and an AI-powered chatbot.
 
